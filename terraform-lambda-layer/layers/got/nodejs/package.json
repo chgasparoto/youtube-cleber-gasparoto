@@ -1,0 +1,15 @@
+{
+  "name": "got-layer",
+  "version": "1.0.5",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Cleber Gasparoto <chgasparoto@gmail.com> (https://github.com/chgasparoto)",
+  "license": "ISC",
+  "dependencies": {
+    "got": "11.8.2"
+  }
+}

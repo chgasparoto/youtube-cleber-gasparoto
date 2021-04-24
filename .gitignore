@@ -29,3 +29,6 @@ override.tf.json
 # example: *tfplan*
 
 .idea
+*.zip
+node_modules
+.terraform
