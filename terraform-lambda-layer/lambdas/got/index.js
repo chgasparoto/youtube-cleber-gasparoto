@@ -11,12 +11,10 @@ exports.handler = async (event, context) => {
 
         return {
             status: 200,
-            body: {
-                cat: response.file
-            }
+            body: JSON.parse(response.body),
         };
     } catch (error) {
         console.error(error);
         throw new Error(error);
     }
-}
+};
