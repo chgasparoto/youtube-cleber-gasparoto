@@ -1,7 +1,6 @@
 const got = require('got');
 
 exports.handler = async (event, context) => {
-
     console.log('Received event', event);
     console.log('Context', context);
 

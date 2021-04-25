@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "lambda-assume-role" {
+data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "lambda-assume-role" {
   }
 }
 
-data "aws_iam_policy_document" "got" {
+data "aws_iam_policy_document" "create_logs_cloudwatch" {
   statement {
     sid       = "AllowCreatingLogGroups"
     effect    = "Allow"
@@ -29,19 +29,19 @@ data "aws_iam_policy_document" "got" {
   }
 }
 
-resource "aws_iam_role" "got" {
-  name               = "got-lambda-role"
-  assume_role_policy = data.aws_iam_policy_document.lambda-assume-role.json
+resource "aws_iam_role" "cat_api_lambda" {
+  name               = "cat-api-lambda-role"
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 
   tags = local.common_tags
 }
 
-resource "aws_iam_policy" "got" {
-  name   = "${aws_lambda_function.got.function_name}-lambda-execute-policy"
-  policy = data.aws_iam_policy_document.got.json
+resource "aws_iam_policy" "create_logs_cloudwatch" {
+  name   = "create-cw-logs-policy"
+  policy = data.aws_iam_policy_document.create_logs_cloudwatch.json
 }
 
-resource "aws_iam_role_policy_attachment" "got" {
-  policy_arn = aws_iam_policy.got.arn
-  role       = aws_iam_role.got.name
+resource "aws_iam_role_policy_attachment" "cat_api_cloudwatch" {
+  policy_arn = aws_iam_policy.create_logs_cloudwatch.arn
+  role       = aws_iam_role.cat_api_lambda.name
 }

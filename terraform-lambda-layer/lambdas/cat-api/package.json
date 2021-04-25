@@ -1,5 +1,5 @@
 {
-  "name": "got",
+  "name": "cat-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,6 @@
   "author": "Cleber Gasparoto <chgasparoto@gmail.com> (https://github.com/chgasparoto)",
   "license": "ISC",
   "devDependencies": {
-    "got": "11.8.2"
+    "got": "^11.8.2"
   }
 }
