@@ -9,6 +9,13 @@ data "aws_iam_policy_document" "lambda_assume_role" {
   }
 }
 
+resource "aws_iam_role" "cat_api_lambda" {
+  name               = "cat-api-lambda-role"
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
+
+  tags = local.common_tags
+}
+
 data "aws_iam_policy_document" "create_logs_cloudwatch" {
   statement {
     sid       = "AllowCreatingLogGroups"
@@ -27,13 +34,6 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
       "logs:PutLogEvents",
     ]
   }
-}
-
-resource "aws_iam_role" "cat_api_lambda" {
-  name               = "cat-api-lambda-role"
-  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
-
-  tags = local.common_tags
 }
 
 resource "aws_iam_policy" "create_logs_cloudwatch" {
