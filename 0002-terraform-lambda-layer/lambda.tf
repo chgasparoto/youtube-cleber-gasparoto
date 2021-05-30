@@ -18,6 +18,4 @@ resource "aws_lambda_function" "cat_api" {
   memory_size = 128
 
   layers = [aws_lambda_layer_version.got.arn]
-
-  tags = local.common_tags
 }
