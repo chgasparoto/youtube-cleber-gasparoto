@@ -1,4 +1,4 @@
-name: Delete terraform resources on the given folder
+name: Destroy terraform resources on the given folder
 
 on:
   workflow_dispatch:
