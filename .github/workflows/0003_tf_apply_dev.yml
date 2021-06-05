@@ -1,0 +1,49 @@
+name: Apply terraform resources on folder 0003-terraform-gha with dev config
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '0003-terraform-gha/**'
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  apply-dev:
+    name: 'terraform apply dev'
+    runs-on: ubuntu-latest
+    env:
+      TF_WORKING_DIR: '0003-terraform-gha'
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.TF_WORKING_DIR }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.15.5
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend=true -backend-config="config/dev/backend.hcl"
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -var-file="config/dev/terraform.tfvars"
