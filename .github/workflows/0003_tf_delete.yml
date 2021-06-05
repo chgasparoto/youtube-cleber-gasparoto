@@ -1,4 +1,4 @@
-name: Delete terraform resources on folder 0003-terraform-gha
+name: Delete terraform resources on the given folder
 
 on:
   workflow_dispatch:
