@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       dir:
-        description: 'Directory with resource to be deleted'
+        description: 'Directory with resources to be destroyed'
         required: true
         default: '0003-terraform-gha'
 
@@ -13,8 +13,8 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  delete-dev:
-    name: 'terraform delete dev'
+  destroy-dev:
+    name: 'terraform destroy dev'
     runs-on: ubuntu-latest
     env:
       TF_WORKING_DIR: ${{ github.event.inputs.dir }}
@@ -46,10 +46,10 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform delete -auto-approve -var-file="config/dev/terraform.tfvars"
+        run: terraform destroy -auto-approve -var-file="config/dev/terraform.tfvars"
 
-  delete-prod:
-    name: 'terraform delete prod'
+  destroy-prod:
+    name: 'terraform destroy prod'
     runs-on: ubuntu-latest
     env:
       TF_WORKING_DIR: ${{ github.event.inputs.dir }}
@@ -81,4 +81,4 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform delete -auto-approve -var-file="config/prod/terraform.tfvars"
+        run: terraform destroy -auto-approve -var-file="config/prod/terraform.tfvars"
