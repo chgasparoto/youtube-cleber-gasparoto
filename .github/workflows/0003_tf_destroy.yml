@@ -45,7 +45,7 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
+      - name: Terraform Destroy
         run: terraform destroy -auto-approve -var-file="config/dev/terraform.tfvars"
 
   destroy-prod:
@@ -80,5 +80,5 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Apply
+      - name: Terraform Destroy
         run: terraform destroy -auto-approve -var-file="config/prod/terraform.tfvars"
