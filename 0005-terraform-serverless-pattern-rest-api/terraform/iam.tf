@@ -34,7 +34,6 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
   }
 
   statement {
-    sid       = "AllowListDynamoDBTales"
     effect    = "Allow"
     resources = ["*"]
     actions = [
@@ -45,7 +44,6 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
   }
 
   statement {
-    sid       = "AllowManageDynamoDB"
     effect    = "Allow"
     resources = ["arn:aws:dynamodb:${var.aws_region}:${var.aws_account_id}:table/${aws_dynamodb_table.this.name}"]
     actions = [
@@ -60,13 +58,11 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
   }
 
   statement {
-    sid       = "AllowParameterStore"
     effect    = "Allow"
     resources = ["arn:aws:ssm:${var.aws_region}:${var.aws_account_id}:parameter/${aws_ssm_parameter.dynamodb_table.name}"]
-    //    arn:aws:ssm:eu-central-1:968339500772:parameter/todos-dynamodb-table
     actions = [
       "ssm:GetParameters",
-      "ssm:GetParameter"
+      "ssm:GetParameter",
     ]
   }
 }

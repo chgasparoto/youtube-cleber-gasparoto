@@ -9,7 +9,7 @@ provider "aws" {
   default_tags {
     tags = {
       Project   = "Serverless REST API Tutorial"
-      CreatedAt = "2021-09-03"
+      CreatedAt = "2021-09-05"
       ManagedBy = "Terraform"
       Owner     = "Cleber Gasparoto"
       Env       = var.env

@@ -49,10 +49,9 @@ resource "aws_lambda_function" "todos" {
   }
 }
 
-resource "aws_lambda_permission" "dynamo" {
+resource "aws_lambda_permission" "api" {
   for_each = local.lambdas
 
-  statement_id  = "AllowExecutionFromAPIGateway${each.key}"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.todos[each.key].arn
   principal     = "apigateway.amazonaws.com"

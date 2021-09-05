@@ -3,14 +3,20 @@ resource "aws_apigatewayv2_api" "this" {
   protocol_type = "HTTP"
 }
 
+resource "aws_apigatewayv2_stage" "this" {
+  api_id      = aws_apigatewayv2_api.this.id
+  name        = "$default"
+  auto_deploy = true
+}
+
 resource "aws_apigatewayv2_integration" "todos" {
   for_each = local.lambdas
 
   api_id                 = aws_apigatewayv2_api.this.id
   integration_type       = "AWS_PROXY"
   integration_method     = "POST"
-  integration_uri        = aws_lambda_function.todos[each.key].invoke_arn
   payload_format_version = "2.0"
+  integration_uri        = aws_lambda_function.todos[each.key].invoke_arn
 }
 
 resource "aws_apigatewayv2_route" "todos" {
@@ -25,10 +31,4 @@ resource "aws_apigatewayv2_route" "todos_get" {
   api_id    = aws_apigatewayv2_api.this.id
   route_key = "GET /v1/todos/{todoId}"
   target    = "integrations/${aws_apigatewayv2_integration.todos["get"].id}"
-}
-
-resource "aws_apigatewayv2_stage" "this" {
-  api_id      = aws_apigatewayv2_api.this.id
-  name        = "$default"
-  auto_deploy = true
 }
