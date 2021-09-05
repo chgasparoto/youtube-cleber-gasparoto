@@ -10,7 +10,7 @@ data "aws_iam_policy_document" "lambda_assume_role" {
 }
 
 resource "aws_iam_role" "rest_api_role" {
-  name               = "${var.service_name}-lambda-role"
+  name               = "${local.namespaced_service_name}-lambda-role"
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 }
 
@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
     sid       = "AllowParameterStore"
     effect    = "Allow"
     resources = ["arn:aws:ssm:${var.aws_region}:${var.aws_account_id}:parameter/${aws_ssm_parameter.dynamodb_table.name}"]
-//    arn:aws:ssm:eu-central-1:968339500772:parameter/todos-dynamodb-table
+    //    arn:aws:ssm:eu-central-1:968339500772:parameter/todos-dynamodb-table
     actions = [
       "ssm:GetParameters",
       "ssm:GetParameter"
@@ -72,7 +72,7 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
 }
 
 resource "aws_iam_policy" "create_logs_cloudwatch" {
-  name   = "${var.service_name}-policy"
+  name   = "${local.namespaced_service_name}-policy"
   policy = data.aws_iam_policy_document.create_logs_cloudwatch.json
 }
 
