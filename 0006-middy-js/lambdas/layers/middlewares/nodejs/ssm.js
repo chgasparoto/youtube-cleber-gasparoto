@@ -1,5 +1,5 @@
-const AWS = require('aws-sdk');
-const ssm = new AWS.SSM();
+const SSM = require('aws-sdk/clients/ssm');
+const ssm = new SSM();
 
 const defaults = {}
 

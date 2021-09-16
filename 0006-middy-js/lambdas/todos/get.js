@@ -1,5 +1,5 @@
-const AWS = require('aws-sdk');
-const dynamo = new AWS.DynamoDB.DocumentClient();
+const DynamoDB = require('aws-sdk/clients/dynamodb');
+const dynamo = new DynamoDB.DocumentClient();
 const middy = require('@middy/core');
 
 const response = require('/opt/nodejs/response');
