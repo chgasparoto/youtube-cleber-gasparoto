@@ -4,6 +4,12 @@ locals {
   lambdas_path = "${path.module}/../lambdas"
   layers_path  = "${local.lambdas_path}/layers"
 
+  lambda_layers = {
+    utils       = "Utils for response and event normalization",
+    middy       = "Middy core 2.5.1",
+    middlewares = "Custom middy middlewares"
+  }
+
   lambdas = {
     get = {
       description = "Get todos"

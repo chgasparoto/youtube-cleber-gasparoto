@@ -9,12 +9,7 @@ data "aws_iam_policy_document" "lambda_assume_role" {
   }
 }
 
-resource "aws_iam_role" "rest_api_role" {
-  name               = "${local.namespaced_service_name}-lambda-role"
-  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
-}
-
-data "aws_iam_policy_document" "create_logs_cloudwatch" {
+data "aws_iam_policy_document" "lambda" {
   statement {
     sid       = "AllowCreatingLogGroups"
     effect    = "Allow"
@@ -67,12 +62,17 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
   }
 }
 
-resource "aws_iam_policy" "create_logs_cloudwatch" {
-  name   = "${local.namespaced_service_name}-policy"
-  policy = data.aws_iam_policy_document.create_logs_cloudwatch.json
+resource "aws_iam_role" "rest_api_role" {
+  name               = "${local.namespaced_service_name}-lambda-role"
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 }
 
-resource "aws_iam_role_policy_attachment" "cat_api_cloudwatch" {
-  policy_arn = aws_iam_policy.create_logs_cloudwatch.arn
+resource "aws_iam_policy" "lambda" {
+  name   = "${local.namespaced_service_name}-policy"
+  policy = data.aws_iam_policy_document.lambda.json
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch" {
+  policy_arn = aws_iam_policy.lambda.arn
   role       = aws_iam_role.rest_api_role.name
 }

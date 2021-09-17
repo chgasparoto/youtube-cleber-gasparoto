@@ -1,45 +1,3 @@
-data "archive_file" "utils_layer" {
-  output_path = "files/utils-layer.zip"
-  type        = "zip"
-  source_dir  = "${local.layers_path}/utils"
-}
-
-resource "aws_lambda_layer_version" "utils" {
-  layer_name          = "utils-layer"
-  description         = "Utils for response and event normalization"
-  filename            = data.archive_file.utils_layer.output_path
-  source_code_hash    = data.archive_file.utils_layer.output_base64sha256
-  compatible_runtimes = ["nodejs14.x"]
-}
-
-data "archive_file" "middy_layer" {
-  output_path = "files/middy-layer.zip"
-  type        = "zip"
-  source_dir  = "${local.layers_path}/middy"
-}
-
-resource "aws_lambda_layer_version" "middy" {
-  layer_name          = "middy-layer"
-  description         = "Middy core 2.5.1"
-  filename            = data.archive_file.middy_layer.output_path
-  source_code_hash    = data.archive_file.middy_layer.output_base64sha256
-  compatible_runtimes = ["nodejs14.x"]
-}
-
-data "archive_file" "middlewares_layer" {
-  output_path = "files/middlewares-layer.zip"
-  type        = "zip"
-  source_dir  = "${local.layers_path}/middlewares"
-}
-
-resource "aws_lambda_layer_version" "middlewares" {
-  layer_name          = "middlewares-layer"
-  description         = "Middlewares"
-  filename            = data.archive_file.middlewares_layer.output_path
-  source_code_hash    = data.archive_file.middlewares_layer.output_base64sha256
-  compatible_runtimes = ["nodejs14.x"]
-}
-
 data "archive_file" "todos" {
   for_each = local.lambdas
 
@@ -64,9 +22,9 @@ resource "aws_lambda_function" "todos" {
   memory_size = each.value["memory"]
 
   layers = [
-    aws_lambda_layer_version.utils.arn,
-    aws_lambda_layer_version.middy.arn,
-    aws_lambda_layer_version.middlewares.arn,
+    module.layers["utils"].arn,
+    module.layers["middy"].arn,
+    module.layers["middlewares"].arn,
   ]
 
   tracing_config {
