@@ -5,13 +5,11 @@ const middy = require('@middy/core');
 const response = require('/opt/nodejs/response');
 const debugMiddleware = require('/opt/nodejs/debugger');
 const ssmMiddleware = require('/opt/nodejs/ssm');
-const errorHandler = require('/opt/nodejs/error-handler');
-const normalizeEventMiddleware = require('/opt/nodejs/normalize-api-event');
+const errorHandlerMiddleware = require('/opt/nodejs/error-handler');
+const eventNormalizerMiddleware = require('/opt/nodejs/api-event-normalizer');
 
 const baseHandler = async event => {
-    const {
-        data
-    } = event.normalized;
+    const { data } = event.normalized;
     const params = {
         TableName: event.table_name,
         Key: {
@@ -39,13 +37,9 @@ const baseHandler = async event => {
 };
 
 const handler = middy(baseHandler)
-    .use(debugMiddleware())
-    .use(normalizeEventMiddleware())
-    .use(ssmMiddleware({
-        parameterName: process.env.TABLE
-    }))
-    .use(errorHandler());
+    .use(debugMiddleware({ debug: true }))
+    .use(eventNormalizerMiddleware())
+    .use(ssmMiddleware({ parameterName: process.env.TABLE }))
+    .use(errorHandlerMiddleware());
 
-module.exports = {
-    handler
-};
+module.exports = { handler };

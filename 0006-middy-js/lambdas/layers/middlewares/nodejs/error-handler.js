@@ -8,7 +8,7 @@ module.exports = () => {
                 'Content-Type': 'application/json',
             },
         };
-    };
+    }
 
     return {
         onError: errorHandler,

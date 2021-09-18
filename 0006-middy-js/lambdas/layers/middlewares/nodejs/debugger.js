@@ -12,7 +12,7 @@ module.exports = (opts = {}) => {
                 data: JSON.stringify(request.event),
             });
         }
-    };
+    }
 
     return {
         before: debugEvent,
