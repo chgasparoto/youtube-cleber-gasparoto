@@ -1,0 +1,20 @@
+{
+  "name": "aws-ecs-fargate-nodejs-app",
+  "version": "1.0.0",
+  "description": "Simple Node.js app running on AWS ECS Fargate",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "serverless",
+    "ecs",
+    "fargate"
+  ],
+  "author": "Cleber Gasparoto",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "express": "^4.17.1"
+  }
+}
