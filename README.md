@@ -3,6 +3,7 @@
 All related code to my [Youtube channel](https://www.youtube.com/channel/UCnP-0M4m5peN-7aLfs4pScA).
 
 Latest videos:
+- [Middy.js: Tutorial de como utilizar AWS Lambda com Middlewares](https://youtu.be/HZS6CKeFo8w)
 - [Terraform: AWS Serverless REST API](https://www.youtube.com/playlist?list=PLWQmZVQayUUK5581j2xYO6iTzooId50Lz)
 - [Serverless (Node.js) REST API Tutorial - API Gateway, Lambda e DynamoDB](https://youtu.be/dRndyTrbL60)
 - [O que é e para o que serve o Terraform?](https://youtu.be/bIPF_hzmQGE)
