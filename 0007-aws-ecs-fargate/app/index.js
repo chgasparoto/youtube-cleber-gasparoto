@@ -9,6 +9,7 @@ const indexPage = `
     <p>What would you like to see?</p>
     <ul>
         <li>Random dogs? <a href="/dogs">Click here</a></li>
+        <li>Random cats? <a href="/cats">Click here</a></li>
     </ul>
 `;
 
@@ -30,6 +31,23 @@ app.get('/dogs', async (req, res) => {
     const { message: dogImage } = response.data;
     res.send(
       `<img src="${dogImage}" alt="random dog" style="max-width: 500px" />`
+    );
+  } catch (error) {
+    console.error(JSON.stringify(error));
+    res.status(500);
+    res.send(error.message);
+  }
+});
+
+app.get('/cats', async (req, res) => {
+  try {
+    const response = await axios.get('https://aws.random.cat/meow');
+
+    console.log(JSON.stringify(response.data));
+
+    const { file: catImage } = response.data;
+    res.send(
+      `<img src="${catImage}" alt="random cat" style="max-width: 500px" />`
     );
   } catch (error) {
     console.error(JSON.stringify(error));
