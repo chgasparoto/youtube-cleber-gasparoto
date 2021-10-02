@@ -19,6 +19,7 @@ Série de vídeos no Youtube explicando como construir e deployar uma aplicaçã
 
 ## Links
 
+- [Playlist dos vídeos](https://www.youtube.com/playlist?list=PLWQmZVQayUUI5RinDqpoIXiRYWy5YZKjs)
 - [Ferramenta CIDR](https://cidr.xyz/)
 - [O que é CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
 - [Fargate Network Mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html#fargate-tasks-networkmode)
