@@ -38,6 +38,25 @@ resource "aws_s3_bucket_website_configuration" "website" {
   }
 }
 
+module "website_files" {
+  source  = "hashicorp/dir/template"
+  version = "1.0.2"
+
+  base_dir = var.files.www_path != null ? var.files.www_path : "${path.module}/www"
+}
+
+resource "aws_s3_object" "website" {
+  for_each = var.files.terraform_managed ? module.website_files.files : {}
+
+  bucket = aws_s3_bucket.website.id
+
+  key          = each.key
+  source       = each.value.source_path
+  content      = each.value.content
+  content_type = each.value.content_type
+  etag         = each.value.digests.md5
+}
+
 resource "aws_s3_bucket_cors_configuration" "website" {
   count = length(var.cors_rules) > 0 ? 1 : 0
 
@@ -54,23 +73,4 @@ resource "aws_s3_bucket_cors_configuration" "website" {
       max_age_seconds = cors_rule.value["max_age_seconds"]
     }
   }
-}
-
-module "template_files" {
-  source  = "hashicorp/dir/template"
-  version = "1.0.2"
-
-  base_dir = var.files.www_path != null ? var.files.www_path : "${path.module}/www"
-}
-
-resource "aws_s3_object" "website" {
-  for_each = var.files.terraform_managed ? module.template_files.files : {}
-
-  bucket = aws_s3_bucket.website.id
-
-  key          = each.key
-  source       = each.value.source_path
-  content      = each.value.content
-  etag         = each.value.digests.md5
-  content_type = each.value.content_type
 }

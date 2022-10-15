@@ -1,27 +1,25 @@
 module "website_s3_bucket" {
-  source = "./modules/s3"
+  source = "./modules/s3-hosting-static-website"
 
   bucket_name = "${random_pet.bucket_name.id}.com"
-  #  bucket_name = random_pet.bucket_name.id
 
   files = {
-    #    terraform_managed = false
     terraform_managed  = true
-    www_path           = "${path.module}/blog"
     error_document_key = "index.html"
+    www_path           = "${path.module}/blog"
   }
 
   cors_rules = [
     {
-      allowed_headers = ["*"],
-      allowed_methods = ["PUT", "POST"],
-      allowed_origins = ["https://test.example.com"],
-      expose_headers  = ["ETag"],
-      max_age_seconds = 3000
+      allowed_headers  = ["*"],
+      allowed_methods  = ["PUT", "POST"],
+      allowed_origins  = ["http:localhost:3000"],
+      exposed_headers  = ["Etag"],
+      max_aged_seconds = 3000
     },
     {
+      allowed_origins = ["*"],
       allowed_methods = ["GET"],
-      allowed_origins = ["*"]
     }
   ]
 }
