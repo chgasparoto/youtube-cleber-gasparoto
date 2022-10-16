@@ -19,7 +19,9 @@ resource "aws_s3_bucket_notification" "s3_trigger" {
   bucket = aws_s3_bucket.lambda.id
 
   lambda_function {
-    lambda_function_arn = aws_lambda_function.s3_trigger.arn
     events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = "input/images"
+    filter_suffix       = ".jpg"
+    lambda_function_arn = aws_lambda_function.s3_trigger.arn
   }
 }

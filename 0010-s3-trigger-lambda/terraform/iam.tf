@@ -16,12 +16,10 @@ resource "aws_iam_role" "s3_lambda" {
 
 data "aws_iam_policy_document" "s3_lambda" {
   statement {
-    sid       = "AllowCreatingLogGroups"
     effect    = "Allow"
-    resources = ["arn:aws:logs:*:*:*"]
+    resources = ["arn:aws:logs:*:*"]
     actions   = ["logs:CreateLogGroup"]
   }
-
   statement {
     sid       = "AllowWritingLogs"
     effect    = "Allow"
@@ -51,7 +49,7 @@ resource "aws_iam_policy" "s3_lambda" {
   policy = data.aws_iam_policy_document.s3_lambda.json
 }
 
-resource "aws_iam_role_policy_attachment" "s3_lambda" {
+resource "aws_iam_role_policy_attachment" "s3_trigger" {
   policy_arn = aws_iam_policy.s3_lambda.arn
   role       = aws_iam_role.s3_lambda.name
 }
