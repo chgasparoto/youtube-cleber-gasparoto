@@ -32,3 +32,4 @@ override.tf.json
 *.zip
 node_modules
 .terraform
+.DS_STORE
