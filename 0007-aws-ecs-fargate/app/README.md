@@ -10,8 +10,12 @@ Série de vídeos no Youtube explicando como construir e deployar uma aplicaçã
 5. [Configurando VPC, Internet Gateway, Subnets e Route Tables](https://youtu.be/9x_GQanUWJM)
 6. [Configurando o Load Balancer](https://youtu.be/IM6k8gM7co8)
 7. [Finalizando a configuração do cluster do ECS e acessando a aplicação](https://youtu.be/UQnJyLnfbgw)
-8. [Subindo uma nova versão da nossa aplicação no ECR e ECS](https://youtu.be/_eyU6A7bCqA)
-9. [Deletando todos os recursos da nossa aplicação](https://youtu.be/erdoH56RarM)
+8. [Alternativa ao NAT Gateway - Subnet Públicas](https://youtu.be/_eEZhXsUL0g)
+9. [Alternativa ao NAT Gateway - VPC Endpoints](https://youtu.be/68cERUTP2kE)
+10. [Conectando o serviço à um banco de dados no AWS RDS](https://youtu.be/IFovNm2Rm8M)
+11. [Alternativa ao NAT Gateway - EC2 NAT Instances](https://youtu.be/sYqNcH9dD0M)
+12. [Subindo uma nova versão da nossa aplicação no ECR e ECS](https://youtu.be/_eyU6A7bCqA)
+13. [Deletando todos os recursos da nossa aplicação](https://youtu.be/erdoH56RarM)
 
 ## Diagrama de arquitetura
 
