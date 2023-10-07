@@ -1,10 +1,10 @@
-provider "aws" {
-  region = var.aws_region
-}
-
 variables {
   aws_region  = "us-east-1"
-  bucket_name = "este-e-um-nome-de-balde-aleatorio-1234321"
+  bucket_name = "este-e-um-nome-de-balde-valido-1230987"
+}
+
+provider "aws" {
+  region = var.aws_region
 }
 
 run "validate_inputs" {
@@ -12,7 +12,7 @@ run "validate_inputs" {
 
   variables {
     aws_region  = "usa-east-1"
-    bucket_name = "Este-e-um-nome-de-balde-aleatorio-1234321"
+    bucket_name = "Nome Invalido"
   }
 
   expect_failures = [
@@ -21,7 +21,7 @@ run "validate_inputs" {
   ]
 }
 
-run "setup_tests" {
+run "setup" {
   module {
     source = "./tests/setup"
   }
@@ -29,7 +29,7 @@ run "setup_tests" {
 
 run "create_bucket" {
   variables {
-    bucket_name = "${run.setup_tests.bucket_prefix}-aws-s3-website-test"
+    bucket_name = run.setup.bucket_prefix
   }
 
   assert {
