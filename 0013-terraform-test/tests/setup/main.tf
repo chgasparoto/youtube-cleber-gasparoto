@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "random_pet" "bucket_prefix" {
-  length = 4
+  length = 6
 }
 
 output "bucket_prefix" {
