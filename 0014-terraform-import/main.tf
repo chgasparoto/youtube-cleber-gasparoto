@@ -19,6 +19,7 @@ provider "aws" {
     tags = {
       "Video"     = "Terraform Import"
       "CreatedAt" = "2023-10-11"
+      "ManagedBy" = "Terraform"
     }
   }
 }
